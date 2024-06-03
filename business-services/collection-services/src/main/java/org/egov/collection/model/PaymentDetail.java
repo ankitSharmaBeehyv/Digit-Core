@@ -6,8 +6,8 @@ import lombok.*;
 import org.egov.collection.web.contract.Bill;
 import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 

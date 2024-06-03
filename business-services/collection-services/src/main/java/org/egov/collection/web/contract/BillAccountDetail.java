@@ -17,7 +17,7 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.SafeHtml;
 
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 
 @Setter
 @Getter
