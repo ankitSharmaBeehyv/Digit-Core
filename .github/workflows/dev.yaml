@@ -1,0 +1,41 @@
+name: dristi workflow
+on:
+  push:
+    branches:
+      - f/2.9-LTS-jdk17-upgrade-collection-service
+  workflow_dispatch:
+jobs:
+  docker_image-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Docker
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Azure Container Registry
+        run: docker login -u pucardev -p ${{ secrets.ACR_PASSWORD }} pucardev.azurecr.io
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: maven
+      - name: Build and Push Docker image for collection-service
+        run: |
+          docker build --build-arg WORK_DIR="business-services/collection-services" -t pucar_collection:v1.0.0-${{ github.sha }} -f build/maven/Dockerfile .
+          docker tag pucar_collection:v1.0.0-${{ github.sha }} pucardev.azurecr.io/pucar_collection:v1.0.0-${{ github.sha }}
+          docker push pucardev.azurecr.io/pucar_collection:v1.0.0-${{ github.sha }}
+      - name: Build and Push Docker image for collection_DB
+        run: |
+           docker build  -t pucar_collection_db:v1.0.0-${{ github.sha }} -f  Dockerfile .
+           docker tag pucar_collection_db:v1.0.0-${{ github.sha }} pucardev.azurecr.io/pucar_collection_db:v1.0.0-${{ github.sha }}
+           docker push pucardev.azurecr.io/pucar_collection_db:v1.0.0-${{ github.sha }}
+        working-directory: business-services/collection-servcices/src/main/resources/db
+#      - name: trigger deployment pipeline
+#        run: |
+#          curl -X POST \
+#          -H "Accept: application/vnd.github.v3+json" \
+#          -H "Authorization: token ${{ secrets.GHUB_TOKEN }}" \
+#          https://api.github.com/repos/pucardotorg/pucar-Devops/actions/workflows/dev.yaml/dispatches \
+#          -d '{"ref":"Dev-0"}'
