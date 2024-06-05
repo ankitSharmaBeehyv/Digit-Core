@@ -32,7 +32,7 @@ class ProducerTest {
 
         when(this.customKafkaTemplate.send((String) any(), (Object) any())).thenReturn(
                 new SendResult<>(producerRecord, new RecordMetadata(new TopicPartition("Topic", 1), 1L, 1L, 10L, 1L, 3, 3)));
-        this.producer.push("Topic", "Value");
+        this.producer.push("TenantId","Topic", "Value");
         verify(this.customKafkaTemplate).send((String) any(), (Object) any());
     }
 }

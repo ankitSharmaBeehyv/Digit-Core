@@ -204,7 +204,7 @@ public class ReceiptServiceV2Test {
         BigDecimal totalAmount = BigDecimal.valueOf(42L);
         MissingNode additionalDetails = MissingNode.getInstance();
         ArrayList<BillDetailV2> billDetails = new ArrayList<>();
-        billV2List.add(new BillV2("42", "42", "Payer Name", "42 Main St", "jane.doe@example.org", BillV2.BillStatus.ACTIVE,
+        billV2List.add(new BillV2("42", "42", "1234567890","Payer Name", "42 Main St", "jane.doe@example.org", BillV2.BillStatus.ACTIVE,
                 totalAmount, "Business Service", "42", 1L, "Consumer Code", additionalDetails, billDetails, "42", "42",
                 new AuditDetails()));
         BillRequestV2 billRequestV2 = mock(BillRequestV2.class);
@@ -226,7 +226,7 @@ public class ReceiptServiceV2Test {
         billDetailV2List.add(new BillDetailV2());
         BigDecimal totalAmount = BigDecimal.valueOf(42L);
         MissingNode additionalDetails = MissingNode.getInstance();
-        BillV2 e = new BillV2("42", "42", "Payer Name", "42 Main St", "jane.doe@example.org", BillV2.BillStatus.ACTIVE,
+        BillV2 e = new BillV2("42", "42", "1234567890","Payer Name", "42 Main St", "jane.doe@example.org", BillV2.BillStatus.ACTIVE,
                 totalAmount, "Business Service", "42", 1L, "Consumer Code", additionalDetails, billDetailV2List, "42", "42",
                 new AuditDetails());
 
@@ -276,7 +276,7 @@ public class ReceiptServiceV2Test {
         BigDecimal totalAmount = BigDecimal.valueOf(42L);
         MissingNode additionalDetails = MissingNode.getInstance();
         ArrayList<BillDetailV2> billDetails = new ArrayList<>();
-        billV2List.add(new BillV2("42", "42", "BillingService", "42 Main St", "jane.doe@example.org",
+        billV2List.add(new BillV2("42", "42", "1234567890","BillingService", "42 Main St", "jane.doe@example.org",
                 BillV2.BillStatus.ACTIVE, totalAmount, "BillingService", "42", 2L, "BillingService", additionalDetails,
                 billDetails, "42", "42", new AuditDetails()));
         BillRequestV2 billRequestV2 = mock(BillRequestV2.class);

@@ -269,7 +269,7 @@ class AmendmentRepositoryTest {
     void testUpdateAmendment() {
         when(this.namedParameterJdbcTemplate.batchUpdate((String) any(),
                 (org.springframework.jdbc.core.namedparam.SqlParameterSource[]) any())).thenReturn(new int[]{1, 1, 1, 1});
-        this.amendmentRepository.updateAmendment(new ArrayList<>());
+        this.amendmentRepository.updateAmendment(new ArrayList<>(),"TenantId");
         verify(this.namedParameterJdbcTemplate).batchUpdate((String) any(),
                 (org.springframework.jdbc.core.namedparam.SqlParameterSource[]) any());
     }
@@ -288,7 +288,7 @@ class AmendmentRepositoryTest {
         amendmentUpdate.setStatus(AmendmentStatus.ACTIVE);
         ArrayList<AmendmentUpdate> amendmentUpdateList = new ArrayList<>();
         amendmentUpdateList.add(amendmentUpdate);
-        this.amendmentRepository.updateAmendment(amendmentUpdateList);
+        this.amendmentRepository.updateAmendment(amendmentUpdateList,"TenantId");
         verify(this.util).getPGObject((Object) any());
         verify(this.namedParameterJdbcTemplate).batchUpdate((String) any(),
                 (org.springframework.jdbc.core.namedparam.SqlParameterSource[]) any());
@@ -312,7 +312,7 @@ class AmendmentRepositoryTest {
 
         ArrayList<AmendmentUpdate> amendmentUpdateList = new ArrayList<>();
         amendmentUpdateList.add(amendmentUpdate);
-        this.amendmentRepository.updateAmendment(amendmentUpdateList);
+        this.amendmentRepository.updateAmendment(amendmentUpdateList,"TenantId");
         verify(this.util).getPGObject((Object) any());
         verify(this.namedParameterJdbcTemplate).batchUpdate((String) any(),
                 (org.springframework.jdbc.core.namedparam.SqlParameterSource[]) any());
