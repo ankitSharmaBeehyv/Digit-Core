@@ -39,6 +39,7 @@
  */
 package org.egov.demand;
 
+import com.fasterxml.jackson.databind.DeserializationConfig;
 import org.egov.common.utils.MultiStateInstanceUtil;
 import org.egov.tracer.config.TracerConfiguration;
 import org.springframework.boot.SpringApplication;
@@ -61,17 +62,18 @@ public class BillingServiceApplication {
 	public ObjectMapper getObjectMapper(){
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-		//objectMapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
+
+		DeserializationConfig originalConfig = objectMapper.getDeserializationConfig();
+		DeserializationConfig newConfig = originalConfig.with(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
+		objectMapper.setConfig(newConfig);
+
 		return objectMapper;
 	}
 
 	@Bean
 	public MappingJackson2HttpMessageConverter jacksonConverter() {
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-		mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-		converter.setObjectMapper(mapper);
+		converter.setObjectMapper(getObjectMapper());
 		return converter;
 	}
 
