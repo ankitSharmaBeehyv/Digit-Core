@@ -1,6 +1,7 @@
 package org.egov;
 
 
+import com.fasterxml.jackson.databind.DeserializationConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,10 +25,15 @@ public class ApportionApp {
 
     @Bean
     public ObjectMapper objectMapper(){
-        return new ObjectMapper()
-                .configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
-                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-                .setTimeZone(TimeZone.getTimeZone(timeZone));
+        ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+
+		DeserializationConfig originalConfig = objectMapper.getDeserializationConfig();
+		DeserializationConfig newConfig = originalConfig.with(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
+		objectMapper.setConfig(newConfig).setTimeZone(TimeZone.getTimeZone(timeZone));
+
+		return objectMapper;
+                
     }
 
     public static void main(String[] args) throws Exception {
