@@ -30,10 +30,7 @@ public class ApportionApp {
 
 		DeserializationConfig originalConfig = objectMapper.getDeserializationConfig();
 		DeserializationConfig newConfig = originalConfig.with(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
-		objectMapper
-            .setConfig(newConfig)
-            .setTimeZone(TimeZone
-                .getTimeZone(timeZone));
+		objectMapper.setConfig(newConfig).setTimeZone(TimeZone.getTimeZone(timeZone));
 
 		return objectMapper;
                 
