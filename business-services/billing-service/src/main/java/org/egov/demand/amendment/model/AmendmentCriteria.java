@@ -42,7 +42,7 @@ package org.egov.demand.amendment.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.egov.demand.amendment.model.enums.AmendmentStatus;
 
